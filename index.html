@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV Portfolio — Premium</title>
+  <meta name="description" content="Premium CV portfolio with liquid glass design and admin panel" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="dark">
+
+  <!-- Cinematic intro -->
+  <div class="intro" id="intro">
+    <div class="intro__bg"></div>
+    <div class="intro__char-wrap">
+      <span class="intro__char" id="introChar">◆</span>
+    </div>
+    <div class="intro__meta">
+      <span class="intro__line-l"></span>
+      <span class="intro__sub" id="introSub">PORTFOLIO · 2026</span>
+      <span class="intro__line-r"></span>
+    </div>
+    <div class="intro__skip">click to skip</div>
+  </div>
+
+  <!-- Mouse follow glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- Background music -->
+  <audio id="bgAudio" loop preload="auto"></audio>
+  <button class="music-btn" id="musicBtn" aria-label="Music toggle" title="Musiqa">
+    <svg class="music-btn__off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+    <svg class="music-btn__on" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    <span class="music-btn__bars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </span>
+  </button>
+
+  <!-- Noise texture overlay -->
+  <div class="noise"></div>
+
+  <!-- Animated background -->
+  <div class="bg-canvas">
+    <canvas class="network-canvas" id="networkCanvas" aria-hidden="true"></canvas>
+    <div class="dots-pattern"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="bg-gradient"></div>
+  </div>
+
+  <!-- Settings / Theme switcher -->
+  <div class="settings">
+    <button class="settings__btn" id="settingsBtn" aria-label="Settings">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      </svg>
+    </button>
+    <div class="settings__panel" id="settingsPanel">
+      <div class="settings__head">
+        <h3>Sozlamalar</h3>
+        <button class="settings__close" id="settingsClose">×</button>
+      </div>
+      <div class="settings__section">
+        <h4>Versiya tanlang</h4>
+        <div class="theme-grid">
+          <button class="theme-card" data-theme="liquid">
+            <div class="theme-preview theme-preview--liquid"></div>
+            <span>Liquid Glass</span>
+          </button>
+          <button class="theme-card" data-theme="classic">
+            <div class="theme-preview theme-preview--classic"></div>
+            <span>Classic CV</span>
+          </button>
+          <button class="theme-card" data-theme="modern">
+            <div class="theme-preview theme-preview--modern"></div>
+            <span>Modern CV</span>
+          </button>
+          <button class="theme-card" data-theme="dark">
+            <div class="theme-preview theme-preview--dark"></div>
+            <span>Dark Premium</span>
+          </button>
+        </div>
+      </div>
+      <div class="settings__section">
+        <h4>Boshqaruv</h4>
+        <button class="settings__action" id="downloadCvBtn">
+          <span>CV yuklab olish (PDF)</span>
+          <span>↓</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav glass">
+    <a href="#" class="nav__logo">
+      <span class="nav__logo-mark">◆</span>
+      <span class="nav__logo-text" data-bind="profile.shortName">Portfolio</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#hero" data-section="hero" class="active"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l9-9 9 9"/><path d="M5 10v10a1 1 0 0 0 1 1h3v-7h6v7h3a1 1 0 0 0 1-1V10"/></svg><span data-text-key="nav_home" data-edit-key="nav_home">Bosh</span></a></li>
+      <li><a href="#about" data-section="about"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><span data-text-key="nav_about" data-edit-key="nav_about">Haqimda</span></a></li>
+      <li><a href="#skills" data-section="skills"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span data-text-key="nav_skills" data-edit-key="nav_skills">Skills</span></a></li>
+      <li><a href="#experience" data-section="experience"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span data-text-key="nav_experience" data-edit-key="nav_experience">Tajriba</span></a></li>
+      <li><a href="#portfolio" data-section="portfolio"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span data-text-key="nav_portfolio" data-edit-key="nav_portfolio">Portfolio</span></a></li>
+      <li><a href="#contact" data-section="contact"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg><span data-text-key="nav_contact" data-edit-key="nav_contact">Kontakt</span></a></li>
+    </ul>
+    <a href="#contact" class="nav__cta" data-magnetic>
+      <span data-text-key="nav_cta">Hire me</span>
+      <span class="arrow">→</span>
+    </a>
+    <button class="nav__hamburger" id="navHamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu overlay -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu__sheet">
+      <div class="mobile-menu__head">
+        <span class="mobile-menu__title" data-bind="profile.shortName">Menu</span>
+        <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Close">×</button>
+      </div>
+      <ul class="mobile-menu__links">
+        <li><a href="#about" data-text-key="nav_about">Haqimda</a></li>
+        <li><a href="#skills" data-text-key="nav_skills">Skills</a></li>
+        <li><a href="#experience" data-text-key="nav_experience">Tajriba</a></li>
+        <li><a href="#portfolio" data-text-key="nav_portfolio">Portfolio</a></li>
+        <li><a href="#contact" data-text-key="nav_contact">Kontakt</a></li>
+      </ul>
+      <a href="#contact" class="btn btn--primary mobile-menu__cta">
+        <span data-text-key="nav_cta">Hire me</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero" id="hero">
+    <div class="hero__inner" id="heroInner">
+      <div class="hero__content">
+        <div class="hero__badge glass-soft" data-style-key="hero_badge" data-edit-key="hero_badge">
+          <span class="dot-pulse"></span>
+          <span data-text-key="hero_badge">Yangi loyihalar uchun ochiq · 2026</span>
+        </div>
+        <h1 class="hero__title" data-style-key="hero_title" data-edit-key="hero_title">
+          <span class="line"><span data-bind="profile.name">Ismingiz</span></span>
+          <span class="line"><em data-bind="profile.profession">Profession</em></span>
+        </h1>
+        <p class="hero__slogan" data-bind="profile.slogan" data-style-key="hero_slogan" data-edit-key="hero_slogan">Sizning shioringiz bu yerda</p>
+        <p class="hero__location" data-edit-key="hero_location">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <span data-bind="profile.location">Joylashuv</span>
+        </p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn--primary" data-magnetic>
+            <span data-text-key="hero_btn_hire" data-edit-key="hero_btn_hire">Hire me</span>
+            <span class="arrow">→</span>
+          </a>
+          <button class="btn btn--ghost" id="heroDownload" data-magnetic>
+            <span data-text-key="hero_btn_download" data-edit-key="hero_btn_download">Download CV</span>
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero__avatar-wrap">
+        <div class="hero__avatar glass" data-tilt>
+          <img id="avatarImg" src="" alt="Avatar" />
+          <div class="hero__avatar-fallback" id="avatarFallback">K</div>
+          <div class="hero__avatar-shine"></div>
+        </div>
+        <div class="hero__avatar-ring"></div>
+        <div class="hero__avatar-badge glass-soft">
+          <span>★</span> Available
+        </div>
+      </div>
+
+      <div class="hero__scroll">
+        <span>scroll</span>
+        <div class="line-down"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subtle marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>DESIGN</span><span class="marquee__dot">●</span>
+      <span>CREATIVE</span><span class="marquee__dot">●</span>
+      <span><em>future</em></span><span class="marquee__dot">●</span>
+      <span>AI</span><span class="marquee__dot">●</span>
+      <span>FULL-STACK</span><span class="marquee__dot">●</span>
+      <span><em>premium</em></span><span class="marquee__dot">●</span>
+      <span>DESIGN</span><span class="marquee__dot">●</span>
+      <span>CREATIVE</span><span class="marquee__dot">●</span>
+      <span><em>future</em></span><span class="marquee__dot">●</span>
+      <span>AI</span><span class="marquee__dot">●</span>
+      <span>FULL-STACK</span><span class="marquee__dot">●</span>
+      <span><em>premium</em></span><span class="marquee__dot">●</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <div class="section__head">
+      <span class="section__index">01</span>
+      <h2 class="section__title" data-text-key="about_title" data-style-key="section_title" data-edit-key="about_title">Haqimda</h2>
+    </div>
+    <div class="about glass">
+      <p class="about__bio" data-bind="profile.bio" data-style-key="about_bio">Biografiyangiz bu yerda</p>
+      <div class="about__stats">
+        <div class="stat">
+          <div class="stat__num" data-bind="stats.years">5</div>
+          <div class="stat__label" data-text-key="stat_years">Yillik tajriba</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num" data-bind="stats.projects">30+</div>
+          <div class="stat__label" data-text-key="stat_projects">Loyihalar</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num" data-bind="stats.clients">25+</div>
+          <div class="stat__label" data-text-key="stat_clients">Mijozlar</div>
+        </div>
+        <div class="stat">
+          <div class="stat__num" data-bind="stats.uptime">99.9%</div>
+          <div class="stat__label" data-text-key="stat_uptime">Ishonchlilik</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section__head">
+      <span class="section__index">02</span>
+      <h2 class="section__title" data-text-key="skills_title" data-style-key="section_title" data-edit-key="skills_title">Skills</h2>
+    </div>
+    <div class="skills" id="skillsContainer">
+      <!-- rendered dynamically -->
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section__head">
+      <span class="section__index">03</span>
+      <h2 class="section__title" data-text-key="experience_title" data-style-key="section_title" data-edit-key="experience_title">Ish tajribasi</h2>
+    </div>
+    <div class="timeline" id="timelineContainer">
+      <!-- rendered dynamically -->
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio" class="section">
+    <div class="section__head">
+      <span class="section__index">04</span>
+      <h2 class="section__title" data-text-key="portfolio_title" data-style-key="section_title" data-edit-key="portfolio_title">Portfolio</h2>
+    </div>
+    <div class="portfolio" id="portfolioContainer">
+      <!-- rendered dynamically -->
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section">
+    <div class="section__head">
+      <span class="section__index">05</span>
+      <h2 class="section__title" data-text-key="contact_title" data-style-key="section_title" data-edit-key="contact_title">Bog'lanish</h2>
+    </div>
+    <div class="contact glass">
+      <div class="contact__left">
+        <h3 class="contact__title" data-text-key="contact_heading">Loyihangiz haqida gaplashaylikmi?</h3>
+        <p class="contact__sub" data-text-key="contact_sub">Xabar yozing — 24 soat ichida javob beraman.</p>
+        <div class="contact__channels" id="contactChannels">
+          <!-- rendered dynamically -->
+        </div>
+      </div>
+
+      <form class="contact__form" id="contactForm">
+        <div class="field">
+          <label data-text-key="form_name">Ismingiz</label>
+          <input type="text" name="name" required placeholder="To'liq ismingiz" />
+        </div>
+        <div class="field">
+          <label data-text-key="form_email">Email</label>
+          <input type="email" name="email" required placeholder="email@example.com" />
+        </div>
+        <div class="field">
+          <label data-text-key="form_subject">Mavzu</label>
+          <input type="text" name="subject" placeholder="Loyiha haqida qisqacha" />
+        </div>
+        <div class="field">
+          <label data-text-key="form_message">Xabar</label>
+          <textarea name="message" rows="4" required placeholder="Loyihangiz haqida batafsil yozing..."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full" data-magnetic>
+          <span data-text-key="form_submit">Xabar yuborish</span>
+          <span class="arrow">→</span>
+        </button>
+        <p class="form-status" id="formStatus"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>
+        <span class="footer__mark">◆</span>
+        <span data-bind="profile.name">Portfolio</span> · <span data-bind="profile.profession">Profession</span>
+      </div>
+      <div data-bind="profile.location">Joylashuv</div>
+      <div>© <span id="footerYear">2026</span> — <span data-text-key="footer_credit">Premium CV portfolio</span></div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__mkm" id="mkmTrigger" title=" ">MKM777</span>
+    </div>
+  </footer>
+
+  <!-- ============ ADMIN PANEL ============ -->
+  <div class="admin" id="adminPanel">
+    <div class="admin__overlay" id="adminOverlay"></div>
+    <div class="admin__sheet">
+      <div class="admin__head">
+        <h2>Admin Panel</h2>
+        <div class="admin__head-actions">
+          <span class="admin__dirty" id="adminDirty">●  saqlanmagan o'zgarishlar</span>
+          <button class="btn btn--primary admin__apply" id="adminApply">
+            <span>Tatbiq qilish</span>
+            <span class="arrow">↻</span>
+          </button>
+          <button class="admin__close" id="adminClose">×</button>
+        </div>
+      </div>
+
+      <!-- Body (login removed — stealth entry only) -->
+      <div class="admin__body" id="adminBody">
+        <aside class="admin__nav">
+          <button class="admin__tab active" data-tab="profile">Profil</button>
+          <button class="admin__tab" data-tab="stats">Statistika</button>
+          <button class="admin__tab" data-tab="skills">Skills</button>
+          <button class="admin__tab" data-tab="experience">Tajriba</button>
+          <button class="admin__tab" data-tab="portfolio">Portfolio</button>
+          <button class="admin__tab" data-tab="contacts">Kontaktlar</button>
+          <button class="admin__tab" data-tab="texts">Textlar</button>
+          <button class="admin__tab" data-tab="typography">Typography</button>
+          <button class="admin__tab" data-tab="music">Musiqa</button>
+          <button class="admin__tab" data-tab="design">Vizual editor</button>
+          <button class="admin__tab" data-tab="security">Maxfiylik</button>
+          <button class="admin__tab admin__tab--danger" data-tab="reset">Reset</button>
+        </aside>
+
+        <div class="admin__main">
+          <!-- Profile tab -->
+          <div class="admin__tab-pane active" data-pane="profile">
+            <h3>Profil ma'lumotlari</h3>
+            <div class="field">
+              <label>To'liq ism</label>
+              <input type="text" id="profile_name" />
+            </div>
+            <div class="field">
+              <label>Qisqa ism (logo uchun)</label>
+              <input type="text" id="profile_shortName" />
+            </div>
+            <div class="field">
+              <label>Kasb / Profession</label>
+              <input type="text" id="profile_profession" />
+            </div>
+            <div class="field">
+              <label>Slogan / Slogan</label>
+              <input type="text" id="profile_slogan" />
+            </div>
+            <div class="field">
+              <label>Joylashuv</label>
+              <input type="text" id="profile_location" />
+            </div>
+            <div class="field">
+              <label>Bio (Haqimda)</label>
+              <textarea id="profile_bio" rows="5"></textarea>
+            </div>
+            <div class="field">
+              <label>Avatar URL yoki rasm yuklash</label>
+              <input type="text" id="profile_avatar" placeholder="https://..." />
+              <input type="file" id="profile_avatarFile" accept="image/*" />
+            </div>
+            <button class="btn btn--primary" data-save="profile">Saqlash</button>
+          </div>
+
+          <!-- Stats tab -->
+          <div class="admin__tab-pane" data-pane="stats">
+            <h3>Statistika raqamlari</h3>
+            <div class="field">
+              <label>Yillar (years)</label>
+              <input type="text" id="stats_years" />
+            </div>
+            <div class="field">
+              <label>Loyihalar (projects)</label>
+              <input type="text" id="stats_projects" />
+            </div>
+            <div class="field">
+              <label>Mijozlar (clients)</label>
+              <input type="text" id="stats_clients" />
+            </div>
+            <div class="field">
+              <label>Uptime / Reyting</label>
+              <input type="text" id="stats_uptime" />
+            </div>
+            <button class="btn btn--primary" data-save="stats">Saqlash</button>
+          </div>
+
+          <!-- Skills tab -->
+          <div class="admin__tab-pane" data-pane="skills">
+            <h3>Skills (ko'nikmalar)</h3>
+            <p class="admin__sub">Har bir ko'nikma uchun nom, kategoriya va daraja (0–100)</p>
+            <div id="skillsList" class="admin__list"></div>
+            <button class="btn btn--ghost" id="addSkill">+ Yangi skill qo'shish</button>
+          </div>
+
+          <!-- Experience tab -->
+          <div class="admin__tab-pane" data-pane="experience">
+            <h3>Ish tajribasi (timeline)</h3>
+            <div id="experienceList" class="admin__list"></div>
+            <button class="btn btn--ghost" id="addExperience">+ Yangi tajriba qo'shish</button>
+          </div>
+
+          <!-- Portfolio tab -->
+          <div class="admin__tab-pane" data-pane="portfolio">
+            <h3>Portfolio loyihalari</h3>
+            <div id="portfolioList" class="admin__list"></div>
+            <button class="btn btn--ghost" id="addPortfolio">+ Yangi loyiha qo'shish</button>
+          </div>
+
+          <!-- Contacts tab -->
+          <div class="admin__tab-pane" data-pane="contacts">
+            <h3>Kontaktlar</h3>
+            <div class="field">
+              <label>Email (Gmail)</label>
+              <input type="email" id="contacts_email" />
+            </div>
+            <div class="field">
+              <label>Telefon</label>
+              <input type="text" id="contacts_phone" />
+            </div>
+            <div class="field">
+              <label>Telegram (@username yoki link)</label>
+              <input type="text" id="contacts_telegram" />
+            </div>
+            <div class="field">
+              <label>GitHub (link)</label>
+              <input type="text" id="contacts_github" />
+            </div>
+            <div class="field">
+              <label>LinkedIn (link)</label>
+              <input type="text" id="contacts_linkedin" />
+            </div>
+            <div class="field">
+              <label>Instagram (link)</label>
+              <input type="text" id="contacts_instagram" />
+            </div>
+            <div class="field">
+              <label>Twitter / X (link)</label>
+              <input type="text" id="contacts_twitter" />
+            </div>
+            <div class="field">
+              <label>Website (link)</label>
+              <input type="text" id="contacts_website" />
+            </div>
+            <button class="btn btn--primary" data-save="contacts">Saqlash</button>
+          </div>
+
+          <!-- Texts tab -->
+          <div class="admin__tab-pane" data-pane="texts">
+            <h3>Sayt textlari</h3>
+            <p class="admin__sub">Saytdagi har bir UI textni o'zgartiring (tugmalar, sarlavhalar, label'lar)</p>
+            <div id="textsList" class="admin__list"></div>
+          </div>
+
+          <!-- Typography tab -->
+          <div class="admin__tab-pane" data-pane="typography">
+            <h3>Typography (shrift va o'lchamlar)</h3>
+            <p class="admin__sub">Asosiy fontlarni va alohida elementlarning shrift/o'lchamini sozlang</p>
+
+            <div class="admin__group">
+              <h4>Asosiy fontlar</h4>
+              <div class="field">
+                <label>Body font (matn)</label>
+                <select id="typo_body"></select>
+              </div>
+              <div class="field">
+                <label>Display font (sarlavhalar)</label>
+                <select id="typo_display"></select>
+              </div>
+              <div class="field">
+                <label>Serif font (kursiv aksent)</label>
+                <select id="typo_serif"></select>
+              </div>
+            </div>
+
+            <div class="admin__group">
+              <h4>Element o'lchamlari (har birini alohida)</h4>
+              <div id="elementStylesList" class="admin__list"></div>
+            </div>
+
+            <button class="btn btn--primary" data-save="typography">Saqlash</button>
+          </div>
+
+          <!-- Music tab -->
+          <div class="admin__tab-pane" data-pane="music">
+            <h3>Fon musiqasi</h3>
+            <p class="admin__sub">Default presetlardan birini tanlang yoki o'zingizning faylingizni yuklang (mp3, wav, ogg)</p>
+
+            <div class="admin__group">
+              <h4>Default musiqalar</h4>
+              <div id="musicPresets" class="music-presets"></div>
+            </div>
+
+            <div class="admin__group">
+              <h4>Yoki musiqa fayli yuklang</h4>
+              <div class="field">
+                <label>URL kiriting</label>
+                <input type="text" id="music_url" placeholder="https://... yoki yuklang" />
+              </div>
+              <div class="field">
+                <label>Yuklash (mp3 / wav / ogg, max 5MB)</label>
+                <input type="file" id="music_file" accept="audio/*" />
+              </div>
+              <div class="field">
+                <label>Standart ovoz balandligi: <span id="volumeDisplay">40</span>%</label>
+                <input type="range" id="music_volume" min="0" max="100" value="40" />
+              </div>
+              <div class="field">
+                <label class="checkbox-row">
+                  <input type="checkbox" id="music_autoplay" />
+                  <span>Sahifa ochilganda avtomatik chal (browser cheklovi bo'lishi mumkin)</span>
+                </label>
+              </div>
+            </div>
+            <button class="btn btn--primary" data-save="music">Saqlash</button>
+          </div>
+
+          <!-- Design / Visual edit tab -->
+          <div class="admin__tab-pane" data-pane="design">
+            <h3>Vizual editor</h3>
+            <p class="admin__sub">Edit mode'ni yoqing — keyin sahifadagi har bir matnni to'g'ridan-to'g'ri bosib o'zgartiring, sudrab joyini siljitib qo'ying</p>
+
+            <button class="btn btn--primary btn--full" id="toggleEditMode">
+              <span id="editModeLabel">Edit mode'ni yoqish</span>
+              <span class="arrow">→</span>
+            </button>
+
+            <div class="admin__group" style="margin-top: 24px;">
+              <h4>Qanday ishlaydi</h4>
+              <ul class="admin__steps">
+                <li><strong>1.</strong> Yuqoridagi tugmani bosing → admin yopiladi va sahifada tahrirlash rejimi yoqiladi</li>
+                <li><strong>2.</strong> Har bir matn ustida <em>nuqta-nuqta border</em> ko'rinadi</li>
+                <li><strong>3.</strong> Matnni <em>bosing</em> → ochiladigan kichik panelda matn / shrift / o'lcham o'zgartiring</li>
+                <li><strong>4.</strong> Yuqori-chap burchakdagi <em>≡ icon</em>ni sudrab matn joyini siljiting</li>
+                <li><strong>5.</strong> Tahrir tugagach, sahifaning chap-pastida turgan <em>"Edit mode OFF"</em> tugmasini bosing</li>
+              </ul>
+            </div>
+
+            <div class="admin__group">
+              <h4>Joylashishni tiklash</h4>
+              <button class="btn btn--ghost" id="resetPositions">Barcha siljitilgan elementlarni asl holatiga qaytarish</button>
+            </div>
+
+            <div class="admin__group">
+              <h4>1-versiyaga qaytarish</h4>
+              <p class="admin__sub" style="margin-bottom: 12px;">Hamma narsa (matnlar, shriftlar, o'lchamlar, joylashuvlar) standart holatga qaytariladi</p>
+              <button class="btn btn--danger" id="resetToV1">⚠ Hammasini 1-versiyaga qaytarish</button>
+            </div>
+          </div>
+
+          <!-- Security tab -->
+          <div class="admin__tab-pane" data-pane="security">
+            <h3>Maxfiylik / Kirish kodi</h3>
+            <p class="admin__sub">Saytga kirish kodini bu yerdan o'zgartiring. Kirgandan so'ng pastdagi <strong>MKM777</strong> ni bosib yangi kod yozing.</p>
+            <div class="field">
+              <label>Maxfiy kirish kodi (publik)</label>
+              <input type="text" id="security_publicCode" placeholder="masalan: mkm777" />
+            </div>
+            <button class="btn btn--primary" data-save="security">Saqlash</button>
+            <p class="admin__hint" style="margin-top:24px;">⚠ Master kod alohida — JS faylda saqlanadi va admin paneldan o'zgartirib bo'lmaydi.</p>
+          </div>
+
+          <!-- Reset tab -->
+          <div class="admin__tab-pane" data-pane="reset">
+            <h3>Reset / Eksport</h3>
+            <p class="admin__sub">Ma'lumotlarni eksport qiling, import qiling yoki standart holatga qaytaring.</p>
+            <div class="admin__actions">
+              <button class="btn btn--ghost" id="exportData">📥 Ma'lumotlarni eksport (JSON)</button>
+              <label class="btn btn--ghost" style="cursor:pointer;">
+                📤 Import (JSON)
+                <input type="file" id="importData" accept="application/json" style="display:none;" />
+              </label>
+              <button class="btn btn--danger" id="resetData">⚠ Standart holatga qaytarish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Edit mode FAB -->
+  <button class="edit-toggle-fab" id="editToggleFab">✓ Edit mode OFF</button>
+
+  <!-- Edit popup (floating editor) -->
+  <div class="edit-popup" id="editPopup">
+    <div class="edit-popup__head">
+      <span id="editPopupTitle">Element editori</span>
+      <button class="edit-popup__close" id="editPopupClose">×</button>
+    </div>
+    <div class="field">
+      <label>Matn (ixtiyoriy)</label>
+      <textarea id="editPopupText" rows="2"></textarea>
+    </div>
+    <div class="edit-popup__row">
+      <div class="field">
+        <label>Shrift</label>
+        <select id="editPopupFont"></select>
+      </div>
+      <div class="field">
+        <label>O'lcham</label>
+        <input type="text" id="editPopupSize" placeholder="64px" />
+      </div>
+    </div>
+    <button class="btn btn--ghost" id="editPopupReset">Pozitsiya/uslublarni tiklash</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
